@@ -40,6 +40,7 @@
     "java:war": "./mvnw -ntp verify -DskipTests --batch-mode -Pwar",
     "java:war:dev": "npm run java:war -- -Pdev,webapp",
     "java:war:prod": "npm run java:war -- -Pprod",
+    "openapi-client:dealer": "openapi-generator generate -g spring -i http://localhost:8082/v3/api-docs/ -p library=spring-cloud -p apiPackage=com.cars.app.client.dealer.api -p modelPackage=com.cars.app.client.dealer.model -p basePackage=com.cars.app.client -p configPackage=com.cars.app.client.dealer -p title=dealer -p artifactId=dealer -p supportingFiles=ApiKeyRequestInterceptor.java --skip-validate-spec",
     "prepare": "husky install",
     "prettier:check": "prettier --check \"{,src/**/}*.{md,json,yml,html,java}\"",
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,yml,html,java}\""
@@ -48,6 +49,9 @@
     "backend_port": "8081",
     "default_environment": "prod",
     "packaging": "jar"
+  },
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "1.0.13-4.3.1"
   },
   "devDependencies": {
     "generator-jhipster": "7.7.0",

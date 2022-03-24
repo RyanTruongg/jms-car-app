@@ -51,11 +51,13 @@ eureka:
 feign:
   circuitbreaker:
     enabled: true
-  # client:
-  #   config:
-  #     default:
-  #       connectTimeout: 5000
-  #       readTimeout: 5000
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        requestInterceptors:
+          - com.cars.app.client.UserFeignClientInterceptor
 management:
   endpoints:
     web:
@@ -248,3 +250,6 @@ jhipster:
 # ===================================================================
 
 # application:
+
+dealerResource:
+  name: 'dealerapp'

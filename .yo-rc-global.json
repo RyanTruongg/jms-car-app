@@ -2,7 +2,8 @@
   "generator-jhipster:7.7.0": {
     "promptValues": {
       "packageName": "com.cars.app",
-      "nativeLanguage": "en"
+      "nativeLanguage": "en",
+      "customEndpoint": "http://localhost:8082/v3/api-docs/"
     }
   }
 }

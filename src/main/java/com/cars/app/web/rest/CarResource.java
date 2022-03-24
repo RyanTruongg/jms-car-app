@@ -1,14 +1,16 @@
 package com.cars.app.web.rest;
 
+import com.cars.app.client.dealer.api.DealerResourceApiClient;
 import com.cars.app.repository.CarRepository;
+import com.cars.app.security.SecurityUtils;
 import com.cars.app.service.CarQueryService;
 import com.cars.app.service.CarService;
-import com.cars.app.service.DealerService;
 import com.cars.app.service.criteria.CarCriteria;
 import com.cars.app.service.dto.CarDTO;
 import com.cars.app.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,18 +43,18 @@ public class CarResource {
 
     private final CarService carService;
 
-    private final DealerService dealerService;
+    private final DealerResourceApiClient dealerResourceApiClient;
 
     private final CarRepository carRepository;
 
     private final CarQueryService carQueryService;
 
     public CarResource(CarService carService, CarRepository carRepository, CarQueryService carQueryService,
-            DealerService dealerService) {
+            DealerResourceApiClient dealerResourceApiClient) {
         this.carService = carService;
         this.carRepository = carRepository;
         this.carQueryService = carQueryService;
-        this.dealerService = dealerService;
+        this.dealerResourceApiClient = dealerResourceApiClient;
     }
 
     /**
@@ -164,9 +166,11 @@ public class CarResource {
             @org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get Cars by criteria: {}", criteria);
         Page<CarDTO> page = carQueryService.findByCriteria(criteria, pageable);
-        System.out.println("===================================================");
-        System.out.println(dealerService.getDealers());
-        System.out.println("===================================================");
+        System.out.println("========================Response===========================");
+        System.out.println(dealerResourceApiClient.getAllDealers(0, 1, Arrays.asList("asc")));
+        System.out.println("===========================User===========================");
+        System.out.println(SecurityUtils.getCurrentUserLogin());
+        System.out.println("==========================================================");
 
         HttpHeaders headers = PaginationUtil
                 .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

@@ -13,6 +13,8 @@ public class UserFeignClientInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        SecurityUtils.getCurrentUserJWT().ifPresent(s -> template.header(AUTHORIZATION_HEADER, String.format("%s %s", BEARER, s)));
+        SecurityUtils.getCurrentUserJWT().ifPresent(s -> System.out.println("Token interceptor: " + s));
+        SecurityUtils.getCurrentUserJWT()
+                .ifPresent(s -> template.header(AUTHORIZATION_HEADER, String.format("%s %s", BEARER, s)));
     }
 }
